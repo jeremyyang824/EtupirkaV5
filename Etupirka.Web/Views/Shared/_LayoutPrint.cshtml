@@ -1,0 +1,66 @@
+﻿@using System.Web.Optimization
+@using Abp.Timing
+@using Abp.Web.Mvc.Extensions
+
+@{
+    this.SetAntiForgeryCookie();
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@L("SiteName")</title>
+
+    <link rel="shortcut icon" href="~/favicon.ico">
+
+    @Styles.Render("~/Bundles/Vendor/Main/css")
+    @Styles.Render("~/Bundles/Site/css")
+
+    <style type="text/css">
+        .print-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 1px;
+            min-height: 100%;
+            position: relative;
+            overflow: hidden;
+            font-size: 13px;
+            line-height: 1.8em;
+        }
+
+            .print-container:before,
+            .print-container:after {
+                content: " ";
+                display: table;
+            }
+
+            .print-container:after {
+                clear: both;
+            }
+
+        .print-table {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+            .print-table > thead > tr > th, .print-table > tbody > tr > td {
+                border: 1px solid black;
+            }
+    </style>
+
+    @RenderSection("Styles", false)
+
+    @RenderSection("Scripts", false)
+</head>
+<body onload="window.print();">
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

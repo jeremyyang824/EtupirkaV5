@@ -1,0 +1,59 @@
+﻿@using Abp.Collections.Extensions
+@model Abp.Web.Mvc.Models.ErrorViewModel
+
+<body class="hold-transition error-info-page">
+
+    <div class="error-page">
+        <div class="error-logo clearfix">
+            <div class="pull-left site-logo">
+                <img src="~/Content/img/stmc-logo.png" alt="logo"/>
+            </div>
+            <div class="pull-left title">@L("SiteTitle1")</div>
+            <div class="pull-left title" style="margin-left:15px;"><b>@L("SiteName")</b></div>
+        </div>
+
+        <h2 class="headline text-red">500</h2>
+
+        <div class="error-content">
+            <section class="content">
+                <h3>
+                    <i class="fa fa-warning text-red"></i> @L("OopsSomethingWentWrong")
+                </h3>
+
+                <p>
+                    @L("FixingError") @Html.ActionLink(L("ReturnToMain"), "Index", "Home")
+                </p>
+
+                <div class="box box-danger">
+                    <div class="box-header with-border">
+                        <i class="icon fa fa-info"></i>
+                        <h3 class="box-title">@Model.ErrorInfo.Message</h3>
+                    </div>
+                    <div class="box-body">
+                        <ul>
+                            <li>
+                                @(!string.IsNullOrEmpty(Model.ErrorInfo.Details) ? Model.ErrorInfo.Details : Model.Exception.Message)
+                            </li>
+                            @* Show validation errors *@
+                            @if (!Model.ErrorInfo.ValidationErrors.IsNullOrEmpty())
+                            {
+                                foreach (var validationError in Model.ErrorInfo.ValidationErrors)
+                                {
+                                    <li>
+                                        @validationError.Message
+                                        @if (validationError.Members != null && validationError.Members.Any())
+                                        {
+                                            <text>(@string.Join(", ", validationError.Members))</text>
+                                        }
+                                    </li>
+                                }
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </div>
+
+</body>

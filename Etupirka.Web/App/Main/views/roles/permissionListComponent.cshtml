@@ -1,0 +1,12 @@
+﻿<div class="box box-success none-margin-bottom">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            <i class="fa fa-fw fa-group"></i><strong>权限列表</strong>
+        </h3>
+    </div>
+    <div class="box-body">
+        <div busy-if="vm.permissionLoading" style="height:422px; border:1px solid #D4D4D4; overflow-y: scroll;">
+            <permission-tree edit-data="vm.permissionTreeData"></permission-tree>
+        </div>
+    </div>
+</div>

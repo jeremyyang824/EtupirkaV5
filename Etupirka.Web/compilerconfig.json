@@ -1,0 +1,26 @@
+﻿[
+  {
+    "outputFile": "App/Main/main.css",
+    "inputFile": "App/Main/main.less"
+  },
+  {
+    "outputFile": "Content/site.css",
+    "inputFile": "Content/site.less"
+  },
+  {
+    "outputFile": "Content/dev/skin-tobacco.css",
+    "inputFile": "Content/dev/skin-tobacco.less"
+  },
+  {
+    "outputFile": "Content/dev/adminlte-less/mixins.css",
+    "inputFile": "Content/dev/adminlte-less/mixins.less"
+  },
+  {
+    "outputFile": "Content/dev/adminlte-less/variables.css",
+    "inputFile": "Content/dev/adminlte-less/variables.less"
+  },
+  {
+    "outputFile": "Content/skins/skin-tobacco.css",
+    "inputFile": "Content/skins/skin-tobacco.less"
+  }
+]

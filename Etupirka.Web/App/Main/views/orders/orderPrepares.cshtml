@@ -1,0 +1,38 @@
+﻿
+<div class="box box-success none-margin-bottom">
+    <div class="box-body">
+        <div class="form-inline" enter-key="vm.bindParepares()">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--Search Header-->
+                    <div class="form-group">
+                        齐备性类型 <select ng-model="vm.jobType" class="form-control form-control-thin"
+                                ng-options="item.value as item.name for item in
+                                [{name:'刀具配刀',value:'tl'},
+                                {name:'NC程序',value:'nc'}]"></select>
+                        <select ng-model="vm.jobStatus" class="form-control form-control-thin"
+                                ng-options="item.value as item.name for item in
+                                [{name:'准备中',value:'1'},
+                                {name:'已完成',value:'2'}]"></select>
+                    </div>
+                    @*<div class="form-group">
+                        <input type="text" ng-model="vm.filterText" auto-focus class="form-control form-control-thin" placeholder="查询内容" style="width:120px;">
+                    </div>*@
+                    <div class="form-group">
+                        <button ng-click="vm.bindParepares()" class="btn bg-tobacco btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-search"></i> 查询
+                        </button>
+                    </div>
+                    <!--Search Header End-->
+                </div>
+            </div>
+            <div class="row margin-top-5">
+                <div class="col-sm-12">
+                    <div busy-if="vm.loading">
+                        <div ui-grid="vm.prepareGridOptions" ui-grid-pagination ui-grid-pinning style="width: 1450px; height:670px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

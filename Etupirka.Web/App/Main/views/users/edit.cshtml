@@ -1,0 +1,71 @@
+﻿@using Etupirka.Domain.Portal.MultiTenancy
+@using Etupirka.Domain.Portal.Users
+<div>
+    <form name="userCreateForm" role="form" novalidate class="form-validation form-horizontal">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span><strong>修改用户信息： {{vm.user.userName}} - {{vm.user.surname}}</strong></span>
+            </h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户名：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="userName" class="form-control" disabled
+                           ng-model="vm.user.userName" required maxlength="@SysUser.MaxUserNameLength">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户工号：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="name" class="form-control"
+                           ng-model="vm.user.name" required maxlength="@SysUser.MaxNameLength">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户姓名：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="surname" class="form-control"
+                           ng-model="vm.user.surname" required maxlength="@SysUser.MaxSurnameLength">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">邮件地址：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="emailAddress" class="form-control"
+                           ng-model="vm.user.emailAddress" required maxlength="@SysUser.MaxEmailAddressLength">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" i-check="{checkboxClass: 'icheckbox_square-green'}" name="isActive"
+                                   ng-model="vm.user.isActive" /> 启用
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-flat"
+                    ng-click="vm.cancel()" ng-disabled="vm.saving">
+                <i class="fa fa-fw fa-ban"></i> <span>@L("Cancel")</span>
+            </button>
+            <button type="submit" button-busy="vm.saving" class="btn btn-warning btn-flat"
+                    ng-click="vm.resetPassword()">
+                <i class="fa fa-fw  fa-warning"></i> <span>@L("PasswordReset")</span>
+            </button>
+            <button type="submit" button-busy="vm.saving" class="btn btn-primary btn-flat"
+                    ng-click="vm.save()" ng-disabled="userCreateForm.$invalid">
+                <i class="fa fa-fw fa-save"></i> <span>@L("Save")</span>
+            </button>
+        </div>
+    </form>
+</div>

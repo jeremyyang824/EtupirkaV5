@@ -1,0 +1,95 @@
+﻿@using Etupirka.Application.Manufacture.HandOver.Dto
+@model Etupirka.Web.Models.HandOvers.PrintHandOverViewModel
+
+@{
+    ViewBag.Title = "打印交接单";
+    Layout = "~/Views/Shared/_LayoutPrint.cshtml";
+}
+
+<div class="print-container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center text-bold">上海烟草机械有限责任公司</h3>
+            <h4 class="text-center text-bold lead">零件交接单</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            交接单编号:&nbsp;@Model.HandOverBill.BillCode
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            送交部门:@Model.HandOverBill.TransferSource.OrganizationUnitName
+        </div>
+        <div class="col-xs-3">
+            送达部门:@Model.HandOverBill.TransferTargetDepartment.OrganizationUnitName
+        </div>
+        <div class="col-xs-3">
+            创建时间:@Model.HandOverBill.CreationTime.ToString("yyyy-MM-dd")
+        </div>
+        <div class="col-xs-3">
+            打印时间:@DateTime.Now.ToString("yyyy-MM-dd")
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-condensed print-table">
+                <thead>
+                    <tr>
+                        <th width="50px">序号</th>
+                        <th width="50px">来源</th>
+                        <th width="120px">订单（行）</th>
+                        <th width="120px">物料编码</th>
+                        <th width="100px">物料图号</th>
+                        <th width="120px">物料名称</th>
+                        <th width="60px">数量</th>
+                        <th width="200px">后道序／工序名/使用点</th>
+                        <th>备注</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        int idx = 0;
+                        foreach (HandOverBillLineOutput billLine in Model.HandOverBillLines)
+                        {
+                            <tr>
+                                <td align="center">@(++idx)</td>
+                                <td align="center">@billLine.OrderInfo.SourceName</td>
+                                <td>@(billLine.OrderInfo.SourceName == "FS" ? $"{billLine.OrderInfo.OrderNumber}/{billLine.OrderInfo.LineNumber}" : billLine.OrderInfo.OrderNumber)</td>
+                                <td>@billLine.ItemNumber</td>
+                                <td>@billLine.DrawingNumber</td>
+                                <td>@billLine.ItemDescription</td>
+                                <td>@billLine.HandOverQuantity.ToString("0.##")</td>
+                                <td>@($"{billLine.NextProcess.ProcessNumber}/{billLine.NextProcess.ProcessName}/{billLine.NextProcess.PointOfUseName}")</td>
+                                <td>@billLine.Remark</td>
+                            </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-12">
+            备注:&nbsp;@Model.HandOverBill.Remark
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-3">
+            编制人:&nbsp;@Model.HandOverBill.CreatorUserName
+        </div>
+        <div class="col-xs-3">
+            编制时间:&nbsp;@Model.HandOverBill.CreationTime.ToString("yyyy-MM-dd")
+        </div>
+        <div class="col-xs-3">
+            接收人:
+        </div>
+        <div class="col-xs-3">
+            接收时间:
+        </div>
+    </div>
+</div>

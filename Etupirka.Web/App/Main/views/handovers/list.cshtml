@@ -1,0 +1,75 @@
+﻿
+<div class="box box-success none-margin-bottom">
+    <div class="box-body">
+        <div class="form-inline" enter-key="vm.bindBills()">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--Search Header-->
+                    <div class="form-group">
+                        <select ng-model="vm.filterType" class="form-control form-control-thin"
+                                ng-options="item.value as item.name for item in 
+                                [{name:'交接单号',value:'stBillCode'},{name:'订单号',value:'stOrderNumber'},{name:'物料编码',value:'stItemNumber'},
+                                {name:'转出部门',value:'stTransferSourceName'},{name:'转入目标',value:'stTransferTargetName'}]"></select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.filterText" auto-focus class="form-control form-control-thin" placeholder="查询内容" style="width:120px;">
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox icheck" style="height: 34px; padding: 5px 10px 5px 0;"
+                             ng-repeat="state in vm.stateList">
+                            <label>
+                                <input type="checkbox" i-check="{checkboxClass: 'icheckbox_minimal'}" ng-model="state.checked" /> {{state.name}}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <p class="input-group input-group-sm margin-bottom-none" style="width: 120px;">
+                            <input type="text" class="form-control" ng-model="vm.searchRangeBegin"
+                                   uib-datepicker-popup="yyyy-MM-dd"
+                                   is-open="vm.searchRangeBeginDateOptions.isOpened"
+                                   datepicker-options="vm.searchRangeBeginDateOptions"
+                                   datepicker-append-to-body="false"
+                                   close-text="关闭" current-text="今天" clear-text="清除"
+                                   required required-message="'required'" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.openSearchRangeBegin()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+
+                        <p class="input-group input-group-sm margin-bottom-none" style="width: 120px;">
+                            <input type="text" class="form-control" ng-model="vm.searchRangeEnd"
+                                   uib-datepicker-popup="yyyy-MM-dd"
+                                   is-open="vm.searchRangeEndDateOptions.isOpened"
+                                   datepicker-options="vm.searchRangeEndDateOptions"
+                                   datepicker-append-to-body="false"
+                                   close-text="关闭" current-text="今天" clear-text="清除"
+                                   required required-message="'required'" />
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default" ng-click="vm.openSearchRangeEnd()"><i class="glyphicon glyphicon-calendar"></i></button>
+                            </span>
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="vm.bindBills()" class="btn bg-tobacco btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-search"></i> 查询交接单
+                        </button>
+                        <button ng-click="vm.createBill()" class="btn bg-blue btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-plus"></i> 创建交接单
+                        </button>
+                        <button ng-click="vm.syncOrders()" class="btn bg-yellow btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-refresh"></i> 同步SAP订单
+                        </button>
+                    </div>
+                    <!--Search Header End-->
+                </div>
+            </div>
+            <div class="row margin-top-5">
+                <div class="col-sm-12">
+                    <div busy-if="vm.loading">
+                        <div ui-grid="vm.handOverBillGridOptions" ui-grid-pagination ui-grid-pinning style="width: 1000px; height:520px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

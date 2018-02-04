@@ -1,0 +1,48 @@
+﻿@using System.Web.Optimization
+@using Abp.Timing
+@using Abp.Web.Mvc.Extensions
+
+@{
+    this.SetAntiForgeryCookie();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@L("SiteName")</title>
+
+    <link rel="shortcut icon" href="~/favicon.ico">
+
+    @Styles.Render("~/Bundles/Vendor/Main/css")
+    @Styles.Render("~/Bundles/Site/css")
+
+    @RenderSection("Styles", false)
+
+    <script type="text/javascript">
+        //This is used to get the application's root path from javascript. It's useful if you're running application in a virtual directory under IIS.
+        var abp = abp || {}; abp.appPath = '@ApplicationPath';
+    </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        @Html.IncludeScript("~/Scripts/html5shiv/html5shiv.min.js")
+        @Html.IncludeScript("~/Scripts/respond/respond.min.js")
+    <![endif]-->
+
+
+    @Scripts.Render("~/Bundles/Vendor/Main/js")
+    @Scripts.Render("~/Bundles/Site/js")
+
+    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+    <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
+    <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
+
+    @RenderSection("Scripts", false)
+</head>
+@RenderBody()
+</html>

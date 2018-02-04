@@ -1,0 +1,101 @@
+﻿@model System.String
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>CooperateTest</title>
+</head>
+<body>
+    <div>
+        <fieldset>
+            <legend>外协送出</legend>
+            <div>
+                @using (Html.BeginForm("SapCooperSendOut", "SapCooperateServiceTest", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <label>SAP订单号：</label>
+                        @Html.TextBox("SapMOrderNumber", "25000000374")
+                    </div>
+                    <div>
+                        <label>SAP工序号：</label>
+                        @Html.TextBox("SapMOrderProcessNumber", "0070")
+                    </div>
+                    <div>
+                        <input type="submit" value="外协送出" />
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <p />
+    <div>
+        <fieldset>
+            <legend>质检完成</legend>
+            <div>
+                @using (@Html.BeginForm("SapCooperFsProcessFinished", "SapCooperateServiceTest", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <label>FS订单号：</label>
+                        @Html.TextBox("FsMOrderNumber", "25000000374-0070")
+                    </div>
+                    <div>
+                        <label>质检合格数量：</label>
+                        @Html.TextBox("InspectQualified", 5M)
+                    </div>
+                    <div>
+                        <input type="submit" value="质检完成" />
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <p />
+    <div>
+        <fieldset>
+            <legend>外协送回</legend>
+            <div>
+                @using (@Html.BeginForm("SapCooperSendBack", "SapCooperateServiceTest", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <label>SAP订单号：</label>
+                        @Html.TextBox("SapMOrderNumber", "25000000374")
+                    </div>
+                    <div>
+                        <label>SAP工序号：</label>
+                        @Html.TextBox("SapMOrderProcessNumber", "0080")
+                    </div>
+                    <div>
+                        <input type="submit" value="外协送回" />
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <div>
+        <fieldset>
+            <legend>测试</legend>
+            <div>
+                @using (@Html.BeginForm("DoTest", "SapCooperateServiceTest", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <div>
+                        <input type="submit" value="测试" />
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+    <hr />
+    <div>
+        @Model
+    </div>
+</body>
+</html>

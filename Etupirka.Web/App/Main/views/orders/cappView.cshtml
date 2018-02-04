@@ -1,0 +1,51 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <div class="modal-title" style="font-weight: bold; font-size: 16px;">工艺卡片</div>
+    </div>
+    <div class="modal-body" busy-if="vm.loading">
+        <table class="table table-bordered table-condensed table-data-simple" style="width:960px">
+            <thead>
+                <tr>
+                    <th rowspan="2" style="vertical-align:middle" align="center" width="200px">上海<br />烟草机械有限责任公司</th>
+                    <th rowspan="2" style="vertical-align:middle" align="center" width="160px">工艺过程卡片</th>
+                    <th align="center" width="150px">物料编码</th>
+                    <th align="center" width="150px">{{::vm.sapOrder.materialNumber}}</th>
+                    <th align="center" width="150px">物料名称</th>
+                    <th align="center" width="150px">{{::vm.sapOrder.materialDescription}}</th>
+                </tr>
+                <tr>
+                    <th align="center">物料描述</th>
+                    <th align="center" colspan="3">{{::vm.sapOrder.materialExternal}}</th>
+                </tr>
+            </thead>
+        </table>
+        <table class="table table-bordered table-condensed table-data-simple" style="width:960px">
+            <thead>
+                <tr>
+                    <th rowspan="2" width="75px">工序号</th>
+                    <th rowspan="2" width="500px">工序内容</th>
+                    <th rowspan="2" width="75px">车间</th>
+                    <th rowspan="2" width="150px">工作中心</th>
+                    <th colspan="2" width="160px">工时</th>
+                </tr>
+                <tr>
+                    <th width="80px">准备</th>
+                    <th width="80px">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="process in vm.sapOrder.bapiOrderProcessList">
+                    <td align="center">{{::process.operationNumber}}</td>
+                    <td>{{::process.standardText}}</td>
+                    <td align="center">{{vm.getWorkDptType(process.lifnr)}}</td>
+                    <td>{{::process.workCenterCode}}{{::process.workCenterName}}</td>
+                    <td align="center">{{::process.vgW01 | number:2}}</td>
+                    <td align="center">{{::process.vgW02 | number:2}}</tdalign="center">
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

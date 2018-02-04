@@ -1,0 +1,24 @@
+﻿<div class="box box-success none-margin-bottom">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            <i class="fa fa-fw fa-group"></i><strong>角色列表</strong>
+        </h3>
+        <div class="box-tools pull-right form-inline">
+            <div class="form-group">
+                <button id="btnCreateRole" ng-click="vm.createRole()" class="btn bg-yellow btn-from-control-thin" style="height:30px;" title="创建角色">
+                    <i class="fa fa-fw fa-user-plus"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <button id="btnAssignRolePermissions" ng-click="vm.assignRolePermissions()" class="btn bg-yellow btn-from-control-thin" style="height: 30px;" title="分配权限">
+                    <i class="fa fa-fw fa-key"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <div busy-if="vm.roleLoading">
+            <div ui-grid="vm.roleGridOptions" ui-grid-selection style="height: 420px;"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,382 @@
+﻿
+
+@import "dev/bootstrap-less/variables.less";
+@import "dev/bootstrap-less/mixins.less";
+@import "dev/adminlte-less/variables.less";
+@import "dev/adminlte-less/mixins.less";
+
+//--------------------------------------------------------
+body {
+    /*font-family: 'Microsoft YaHei',"黑体","宋体",sans-serif;*/
+    font-family: "宋体",sans-serif;
+}
+
+.box {
+    box-shadow: none !important;
+}
+
+.login-page {
+    font-family: 'Microsoft YaHei',"黑体",sans-serif;
+
+    .login-logo {
+        text-align: center;
+        margin-bottom: 20px;
+
+        .title1 {
+            font-size: 22px;
+        }
+
+        .title2 {
+            font-size: 30px;
+        }
+
+        .site-logo {
+            > img {
+                width: 100%;
+                max-width: 72px;
+                height: auto;
+            }
+        }
+    }
+}
+
+//none margin
+.none-margin {
+    margin: 0px !important;
+}
+
+.none-margin-top {
+    margin-top: 0px !important;
+}
+
+.none-margin-bottom {
+    margin-bottom: 0px !important;
+}
+
+.none-margin-left {
+    margin-left: 0px !important;
+}
+
+.none-margin-right {
+    margin-right: 0px !important;
+}
+
+//margin 5
+.margin-top-5 {
+    margin-top: 5px;
+}
+
+.margin-bottom-5 {
+    margin-bottom: 5px;
+}
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+//margin 8
+.margin-top-8 {
+    margin-top: 8px;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+}
+
+.margin-left-8 {
+    margin-left: 8px;
+}
+
+.margin-right-8 {
+    margin-right: 8px;
+}
+
+
+//none padding
+.none-padding {
+    padding: 0px !important;
+}
+
+.none-padding-top {
+    padding-top: 0px !important;
+}
+
+.none-padding-bottom {
+    padding-bottom: 0px !important;
+}
+
+.none-padding-left {
+    padding-left: 0px !important;
+}
+
+.none-padding-right {
+    padding-right: 0px !important;
+}
+
+//----Modal------------------------------------------
+.modal-header {
+    border-top: 3px solid @green;
+}
+
+//----Form-------------------------------------------
+.form-control-thin {
+    height: 28px;
+    padding: 3px 6px;
+    font-size: 12px;
+    border-radius: 0;
+    box-shadow: none;
+    border: 1px solid #d2d6de;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.form-control-thin:focus {
+    border-color: #3c8dbc;
+    box-shadow: none;
+}
+
+.form-label {
+    min-width: 80px;
+    text-align: right;
+    height: 25px;
+    vertical-align: middle;
+    margin-bottom: 0px;
+    margin-top: 3px;
+}
+
+.btn-from-control-thin {
+    padding: 0px 6px;
+    height: 28px;
+    font-size: 13px;
+}
+
+
+.tobacco-form-row {
+    border-left: 1px solid #D2D6DE;
+    border-right: 1px solid #D2D6DE;
+    border-bottom: 1px solid #D2D6DE;
+    margin-bottom: 0;
+
+    &:first-child {
+        border-top: 1px solid #D2D6DE;
+    }
+}
+
+.tobacco-form-row-title {
+    background-color: #EEE;
+    height: 35px;
+    padding: 3px;
+    clear: both;
+
+    & > .title-text {
+        float: left;
+        margin-top: 3px;
+        margin-left: 3px;
+        font-weight: bold;
+    }
+}
+
+.tobacco-form-label {
+    padding-left: 2px;
+    padding-right: 2px;
+    padding-top: 10px !important;
+    text-align: right;
+    color: #333;
+}
+
+.tobacco-form-item {
+    padding-left: 2px;
+    padding-right: 8px;
+    padding-top: 3px;
+
+    &:not(:last-child) {
+        border-right: 1px solid #D2D6DE;
+    }
+
+    & > .form-control {
+        height: 30px;
+        padding: 5px 5px;
+        font-size: 14px;
+        line-height: 1.5em;
+        margin-bottom: 4px;
+    }
+}
+
+
+.btn.bg-tobacco, .btn.bg-tobacco-active {
+    color: white !important;
+    background-color: @green !important;
+}
+
+.btn.bg-tobacco:hover,
+.btn.bg-tobacco:active,
+.btn.bg-tobacco.hover {
+    color: white !important;
+    background-color: #008d4c !important;
+}
+
+.btn.green-stripe {
+    border-left: 3px solid @green;
+}
+
+.btn.blue-stripe {
+    border-left: 3px solid @aqua;
+}
+
+.btn.yellow-stripe {
+    border-left: 3px solid @yellow;
+}
+
+.btn.red-stripe {
+    border-left: 3px solid @red;
+}
+
+.bg-silver {
+    color: #333333;
+    background-color: #DDDDDD;
+}
+
+//ui-grid selection row
+.ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+    background-color: #ddeeee;
+}
+
+//jstree
+.tree-item-icon-color {
+    color: #dfba49;
+}
+
+//----Simple Table----------------------------------
+.table-data-simple {
+    border: 1px solid #D2D6DE !important;
+    margin: 0;
+
+    & > thead > tr > th, & > tbody > tr > td {
+        border: 1px solid #D2D6DE !important;
+    }
+
+    & > thead > tr > th {
+        background-color: #EEE;
+        text-align: center;
+    }
+
+    & > tbody > tr > td.td-idx {
+        text-align: center;
+        font-weight: bold;
+    }
+}
+
+//-----pagination--------------------------------
+
+.pagination > .active > a,
+.pagination > .active > a:focus,
+.pagination > .active > a:hover,
+.pagination > .active > span,
+.pagination > .active > span:focus,
+.pagination > .active > span:hover {
+    z-index: 3;
+    color: #fff;
+    cursor: default;
+    background-color: #008d4c;
+    border-color: #008d4c;
+}
+
+//----Error Page------------------------------------
+.error-info-page {
+    background: @gray;
+}
+
+.error-page {
+    width: 680px;
+
+    .error-logo {
+        text-align: center;
+        margin-top: 35px;
+
+        .title {
+            font-size: 22px;
+        }
+
+        .site-logo {
+            > img {
+                width: 100%;
+                max-width: 32px;
+                height: auto;
+            }
+        }
+    }
+
+    > .error-content {
+        margin-left: 160px;
+    }
+}
+
+.error-page-header {
+    position: relative;
+    padding: 15px 15px 0 15px;
+}
+//----End Error Page-----------------------------
+
+.red {
+    color: red !important;
+}
+
+.blue {
+    color: blue !important;
+}
+
+.green {
+    color: green !important;
+}
+
+.orange {
+    color: orange !important;
+}
+
+/*//----jquery.validate----------------------------
+label {
+    &.error {
+        color: red !important;
+    }
+}
+
+input {
+    &.error{
+
+    }
+}
+
+//-----------------------------------------------*/
+
+//----layout-------------
+.layout-mode2 .content-wrapper,
+.layout-mode2 .right-side,
+.layout-mode2 .main-footer {
+    margin-left: 0;
+    transition: none !important;
+}
+
+.layout-mode2 .main-header .navbar {
+    margin-left: 0;
+}
+
+.layout-mode1 .content-wrapper,
+.layout-mode1 .right-side {
+    margin-left: 0;
+    padding-top: 0;
+    transition: none !important;
+}
+

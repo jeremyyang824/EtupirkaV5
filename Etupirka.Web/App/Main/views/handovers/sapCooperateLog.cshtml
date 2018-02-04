@@ -1,0 +1,106 @@
+﻿<div>
+    <form name="sapCooperateLogForm" role="form" novalidate class="form-validation form-horizontal">
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="vm.cancel()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-title" style="font-weight: bold;font-size:16px;">SAP工艺外协接口日志</div>
+        </div>
+        <div class="modal-body" busy-if="vm.loading">
+            <div class="form-horizontal">
+                <div style="overflow-y: scroll;">
+                    <table class="table table-bordered table-condensed table-data-simple">
+                        <thead>
+                            <tr>
+                                <th width="50px">工序</th>
+                                <th width="80px">工艺代码</th>
+                                <th width="80px">外协供方</th>
+                                <th width="50px">准备</th>
+                                <th width="50px">审批1</th>
+                                <th width="50px">采购</th>
+                                <th width="50px">COMT</th>
+                                <th width="50px">MOMT</th>
+                                <th width="50px">PICK</th>
+                                <th width="50px">质检</th>
+                                <th width="50px">MORV</th>
+                                <th width="50px">IMTR</th>
+                                <th width="55px">IMTR2</th>
+                                <th width="50px">SHIP</th>
+                                <th width="50px">审批2</th>
+                                <th width="50px">入库</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div style="height: 480px; overflow-y: scroll;">
+                    <table class="table table-bordered table-condensed table-data-simple">
+                        <tbody>
+                            <tr ng-repeat-start="logItem in vm.sapCooperateLogs">
+                                <td width="50px" align="center">
+                                    <span class="blue" ng-if="logItem.cooperateSteps.length>0" ng-click="vm.toggleLogDetail(logItem)" style="text-decoration: underline; cursor: pointer">
+                                        {{::logItem.operationNumber}}
+                                    </span>
+                                    <span class="blue" ng-if="logItem.cooperateSteps.length==0">
+                                        {{::logItem.operationNumber}}
+                                    </span>
+                                </td>
+                                <td width="80px" align="center">{{::logItem.workCenterCode}}</td>
+                                <td width="80px" align="center">
+                                    <span ng-if="logItem.cooperateType==0 && logItem.cooperaterCode">[{{::logItem.cooperaterCode}}]{{::logItem.cooperaterName}}</span>
+                                    <span ng-if="logItem.cooperateType!=0" title="{{::logItem.cooperaterName}}">{{::logItem.cooperaterCode}}</span>
+                                </td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isPrepareFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isSapPoRequestReleased)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isSapPomtFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsComtFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsMomtFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsPickFinished)}}</td>
+                                <td width="50px" align="center">
+                                    <span ng-if="logItem.isMesInspectFinished">
+                                        {{::logItem.mesInspectQualified | number:2}}
+                                    </span>
+                                </td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsMorvFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsImtrFinished)}}</td>
+                                <td width="55px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsImtrSalesFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isFsShipFinished)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isSapPoReleased)}}</td>
+                                <td width="50px" align="center" class="green">{{vm.formatStepStatus(logItem.isSapPorvFinished)}}</td>
+                            </tr>
+                            <tr ng-repeat-end ng-if="logItem.$isShowDetail">
+                                <td colspan="16">
+                                    <table class="table table-bordered table-condensed table-data-simple">
+                                        <thead>
+                                            <tr>
+                                                <th width="50px">序号</th>
+                                                <th width="100px">业务类型</th>
+                                                <th width="120px">接口类型</th>
+                                                <th width="80px">执行结果</th>
+                                                <th width="280px">反馈消息</th>
+                                                <th width="150px">执行日期</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="logStep in logItem.cooperateSteps">
+                                                <td>#{{::$index+1}}</td>
+                                                <td align="center">{{::logStep.stepTransactionType}}</td>
+                                                <td>{{::logStep.stepName}}</td>
+                                                <td align="center">
+                                                    <span ng-class="{'red': !logStep.isStepSuccess, 'green': logStep.isStepSuccess}">
+                                                        {{vm.formatStepStatus(logStep.isStepSuccess)}}
+                                                    </span>
+                                                </td>
+                                                <td>{{::logStep.stepResultMessage}}</td>
+                                                <td>{{::logStep.creationTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

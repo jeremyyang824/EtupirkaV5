@@ -1,0 +1,94 @@
+﻿@using System.Threading
+@using System.Web.Optimization
+@using Abp.Timing
+@using Abp.Web.Mvc.Extensions
+@{
+    SetAntiForgeryCookie();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>@L("SiteName")</title>
+
+    <link rel="shortcut icon" href="~/favicon.ico">
+
+    @Styles.Render("~/Bundles/Vendor/Main/css")
+    @Styles.Render("~/Bundles/Vendor/Angular/css")
+    @Styles.Render("~/Bundles/Site/css")
+    @Styles.Render("~/Bundles/App/Main/css")
+
+    <script type="text/javascript">
+        //This is used to get the application's root path from javascript. It's useful if you're running application in a virtual directory under IIS.
+        var abp = abp || {}; abp.appPath = '@ApplicationPath';
+    </script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+        @Html.IncludeScript("~/Scripts/html5shiv/html5shiv.min.js")
+        @Html.IncludeScript("~/Scripts/respond/respond.min.js")
+    <![endif]-->
+    @Scripts.Render("~/Bundles/Vendor/Main/js")
+    @Scripts.Render("~/Bundles/Vendor/Angular/js")
+    @Scripts.Render("~/Bundles/Site/js")
+
+    <script>
+        //Localizing momentjs
+        moment.locale('@Thread.CurrentThread.CurrentUICulture.Name');
+    </script>
+
+    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+    <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
+    <script src="~/api/AbpServiceProxies/GetAll?type=angular&v=@(Clock.Now.Ticks)"></script>
+    <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
+
+    <!-- SignalR scripts -->
+    <script src="~/signalr/hubs"></script>
+    @Html.IncludeScript("~/Abp/Framework/scripts/libs/abp.signalr.js")
+
+    @Scripts.Render("~/Bundles/App/Main/js")
+
+</head>
+<body ng-app="app.main" class="hold-transition skin-green-tobacco sidebar-mini fixed" ng-class="{'layout-mode1': $root.displayMode==1, 'layout-mode2': $root.displayMode==2}">
+    <div class="wrapper" ng-controller="layoutController as vm">
+        
+        <!-- Main Header -->
+        <layout-top-bar-component ng-if="$root.displayMode>=2"></layout-top-bar-component>
+
+        <!-- Left Sidebar -->
+        <layout-side-bar-component ng-if="$root.displayMode>=3"></layout-side-bar-component>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                    <strong><span ng-bind="$root.title"></span></strong>
+                    <small ng-bind="$root.subTitle"></small>
+                </h1>
+                <etu-breadcrumbs-component></etu-breadcrumbs-component>
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div ui-view></div>
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <!-- Main Footer -->
+        <footer class="main-footer" ng-if="$root.displayMode>=2">
+            <div class="pull-right hidden-xs">
+                @L("SiteName")
+            </div>
+            Copyright &copy; 2016
+        </footer>
+    </div>
+    @StackExchange.Profiling.MiniProfiler.RenderIncludes(StackExchange.Profiling.RenderPosition.BottomRight, true, null, 10, true)
+</body>
+</html>

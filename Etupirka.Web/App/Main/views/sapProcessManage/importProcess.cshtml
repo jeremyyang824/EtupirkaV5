@@ -1,0 +1,24 @@
+﻿<div busy-if="vm.loading">
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <div class="modal-title" style="font-weight: bold; font-size: 16px;">导入工艺外协信息</div>
+    </div>
+    <div class="modal-body">
+        <form class="form-inline">
+            <div style="margin-left: 5px; margin-right: 5px; margin-bottom:15px;">
+                <div class="form-group">
+                    <label>选择上传文件：</label>
+                    <input type="file" class="form-control form-control-thin" style="width: 280px;"
+                           ngf-select ng-model="vm.importFile" name="itemImgFile" ngf-max-size="10MB" />
+                </div>
+                <div class="form-group">
+                    <button ng-click="vm.saveImportProcess()" class="btn bg-yellow btn-flat btn-from-control-thin margin-left-5">
+                        <i class="fa fa-fw fa-refresh"></i> 开始导入
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

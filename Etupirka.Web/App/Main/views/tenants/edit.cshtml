@@ -1,0 +1,50 @@
+﻿@using Etupirka.Domain.Portal.MultiTenancy
+<div>
+    <form name="tenantEditForm" role="form" novalidate class="form-validation form-horizontal">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span><strong>修改烟厂信息： </strong> {{vm.tenant.tenancyName}} - {{vm.tenant.name}}</span>
+            </h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">烟厂编号：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="tenancyName" class="form-control"
+                           ng-model="vm.tenant.tenancyName" required maxlength="@SysTenant.MaxTenancyNameLength">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">烟厂名称：</label>
+                <div class="col-sm-9">
+                    <input type="text" name="name" class="form-control"
+                           ng-model="vm.tenant.name" required maxlength="@SysTenant.MaxNameLength">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-3 col-sm-9">
+                    <div class="checkbox icheck">
+                        <label>
+                            <input type="checkbox" i-check="{checkboxClass: 'icheckbox_square-green'}" name="isActive"
+                                   ng-model="vm.tenant.isActive" /> 启用
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-flat"
+                    ng-click="vm.cancel()" ng-disabled="vm.saving">
+                <i class="fa fa-fw fa-ban"></i> <span>@L("Cancel")</span>
+            </button>
+            <button type="submit" button-busy="vm.saving" class="btn btn-primary btn-flat"
+                    ng-click="vm.save()" ng-disabled="tenantEditForm.$invalid">
+                <i class="fa fa-fw fa-save"></i> <span>@L("Save")</span>
+            </button>
+        </div>
+    </form>
+</div>

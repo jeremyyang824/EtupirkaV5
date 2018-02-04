@@ -1,0 +1,74 @@
+﻿@model Etupirka.Web.Models.Account.LoginFormViewModel
+
+@using Abp.Web.Mvc.Extensions
+@using Etupirka.Domain.Portal.MultiTenancy
+@using Etupirka.Domain.Portal.Users
+
+@section Scripts
+{
+    @Html.IncludeScript("~/Views/Account/Login.js")
+}
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <div class="pull-left site-logo">
+                <img src="~/Content/img/stmc-logo.png" alt="logo" />
+            </div>
+            <div class="title1">@L("SiteTitle1")</div>
+            <div class="title2"><b>@L("SiteName")</b></div>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">@L("PleaseEnterLoginInformation")</p>
+
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { id = "LoginForm" }))
+            {
+                @Html.AntiForgeryToken()
+                if (Model.IsMultiTenancyEnabled)
+                {
+                    @*<div class="form-group has-feedback">
+                            <span class="fa fa-sitemap form-control-feedback"></span>
+                            <input type="text" class="form-control" id="TenancyName" name="TenancyName" placeholder="@L("TenancyName")" maxlength="@SysTenant.MaxTenancyNameLength">
+                        </div>*@
+                    <div class="form-group has-feedback">
+                        @Html.DropDownList("TenancyName", Model.TenancyNames, new { @class = "form-control" })
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" id="TenancyName" value="">
+                }
+                <div class="form-group has-feedback">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                    <input type="text" class="form-control required" id="UserName" name="UserName" placeholder="@L("UserName")" required maxlength="@SysUser.MaxUserNameLength" value="admin" />
+                </div>
+                <div class="form-group has-feedback">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                    <input type="password" class="form-control required" id="Password" name="Password" placeholder="@L("Password")" required maxlength="@SysUser.MaxPlainPasswordLength" value="123qwe" />
+                </div>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="checkbox icheck">
+                            <label>
+                                @Html.CheckBox("RememberMe", false) @L("RememberMe")
+                            </label>
+                        </div>
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-xs-4">
+                        <button id="LoginButton" type="submit" class="btn btn-primary btn-block btn-flat"><i class="fa fa-fw fa-sign-in"></i> @L("LogIn")</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+
+                <input id="ReturnUrlHash" name="returnUrlHash" type="hidden" />
+            }
+
+            <a href="#">@L("ForgotPassword")</a><br>
+            @Html.ValidationSummary()
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+
+</body>

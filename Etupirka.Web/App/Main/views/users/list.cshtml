@@ -1,0 +1,12 @@
+﻿
+<div class="row">
+    <div class="col-md-7">
+        <!--用户列表-->
+        <users-list-component tenant-id="{{vm.tenantId}}" filter-text="vm.filterText" filter-is-active="vm.filterIsActive"
+                              selected-user="vm.selectedUser" get-selected-roles="vm.getSelectedRoles()"></users-list-component>
+    </div>
+    <div class="col-md-5">
+        <!--角色列表-->
+        <roles-list-component tenant-id="{{vm.tenantId}}" assigned-roles="vm.selectedUser.roles" selected-roles="vm.selectedRoles"></roles-list-component>
+    </div>
+</div>

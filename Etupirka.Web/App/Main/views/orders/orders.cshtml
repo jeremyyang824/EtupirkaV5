@@ -1,0 +1,221 @@
+﻿
+<style>
+    nav {
+        position: relative;
+        width: 100%;
+        height: 50px;
+    }
+
+    .pagination {
+        right: 0px;
+        position: absolute;
+        top: -30px;
+    }
+
+    nav li {
+        cursor: pointer;
+    }
+
+    .order-item-container > tbody > tr > td {
+        padding: 0px !important;
+    }
+
+    .order-item-odd {
+        background-color: #eee !important;
+    }
+</style>
+
+<div class="box box-success none-margin-bottom">
+    <div class="box-body">
+        <div class="form-inline">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--Search Header-->
+                    <div class="form-group" style="width:1168px">
+                        <div class="pull-left" style="font-weight:bold; font-size:14px;">
+                            <span>机台：</span>
+                            <span>{{::vm.workCenter.workCenterCode}}&nbsp;{{::vm.workCenter.workCenterName}}</span>
+                        </div>
+                        <div class="pull-right">
+                            <button ng-click="vm.gotoWorkCenters()" class="btn btn-default btn-flat btn-from-control-thin">
+                                <i class="fa fa-fw fa-reply"></i> 回到列表
+                            </button>
+                        </div>
+                    </div>
+                    <!--Search Header End-->
+                </div>
+            </div>
+            <div class="row margin-top-5" style="max-width:1200px;">
+                <div class="col-sm-12">
+                    <div busy-if="vm.loading">
+
+                        <div style="margin-left: 2px; margin-right: 2px; margin-top: 2px; overflow-y: scroll;">
+                            <table class="table table-bordered table-condensed table-data-simple">
+                                <thead>
+                                    <tr>
+                                        <th width="50px">
+                                            <input type="checkbox" ng-model="vm.isSelectAll" ng-click="vm.util.selectAll(vm.isSelectAll)" />
+                                        </th>
+                                        <th class="td-idx" width="50px"></th>
+                                        <th width="120px">
+                                            订单/道序
+                                        </th>
+                                        <th width="120px">
+                                            派工信息
+                                        </th>
+                                        <th width="150px">物料信息</th>
+                                        <th width="70px">当前状态</th>
+                                        <th width="100px">数量</th>
+                                        <th width="100px">定额工时</th>
+                                        <th width="100px">操作</th>
+                                        <th width="100px">齐备性</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <div style="margin-left: 2px; margin-right: 2px; margin-bottom: 2px; height: 480px; overflow-y: scroll;">
+                            <table class="table order-item-container" ui-grid-expandable>
+                                <tbody>
+                                    <tr ng-repeat="line in vm.ordersGridOptions">
+                                        <td>
+                                            <table class="table table-bordered table-condensed table-data-simple" ng-class="{true:'order-item-odd', false:'order-item-even'}[$odd]">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="50px" align="center">
+                                                            <input type="checkbox" ng-model="line.$checked" ng-disabled="line.lineState!=0" />
+                                                        </td>
+                                                        <td class="td-idx" width="50px">
+                                                            <input type="checkbox" checked="checked" ng-model="prepareList" />
+                                                            #{{::$index+1}}
+                                                        </td>
+                                                        <td width="120px" align="center">
+                                                            <div><b>{{::line.orderNumber}}/</b></div><div><b>{{::line.routingNumber}}</b></div>
+                                                        </td>
+                                                        <td width="120px" align="left">
+                                                            <div><span class="text-info ">单号：</span>{{::line.dispatchTicketID}}</div>
+                                                            <div><span class="text-info ">时间：</span></div>
+                                                            <div>{{::line.actualDispatchDate | date:'yyyy-MM-dd HH:mm'}}</div>
+                                                        </td>
+                                                        <td width="150px" align="center">
+                                                            <div>{{::line.materialNumber}}</div>
+                                                            <div>{{::line.materialDescription}}</div>
+                                                        </td>
+                                                        <td width="70px" align="center">{{::line.dispatchMesStatus}}</td>
+                                                        <td width="100px" align="left">
+                                                            <div><span class="text-info ">总投产：</span>{{::line.targetQuantity | number:2}}</div>
+                                                            <div><span class="text-info ">已派工：</span>{{::line.quantity | number:2}}</div>
+                                                        </td>
+                                                        <td width="100px" align="left">
+                                                            <div>
+                                                                <span class="text-info ">准备：</span>{{::line.afvV_VGW01 | number:2}}
+                                                            </div><div>
+                                                                <span class="text-info ">机器：</span>{{::line.afvV_VGW02 | number:2}}
+                                                            </div><div>
+                                                                <span class="text-info ">总计：</span>{{::vm.getTotalWorkTime(line.afvV_VGW01, line.afvV_VGW02, line.targetQuantity)}}
+                                                            </div>
+
+                                                        </td>
+                                                        <td width="100px" align="center"> </td>
+                                                        <td width="100px" align="left">
+                                                            <div>
+                                                                <a style="text-decoration: underline; cursor:pointer" ng-click="vm.gotoDrawing(line.materialNumber)">
+                                                                    <span class="fa fa-link "></span>2D/3D图纸
+
+                                                                </a>
+                                                            </div>
+                                                            <div>
+                                                                <a style="text-decoration: underline; cursor:pointer" ng-click="vm.gotoCAPP(line.orderNumber)">
+                                                                    <span class="fa fa-link "></span>2D/3D CAPP
+
+                                                                </a>
+                                                            </div>
+
+                                                            @*<div class="row">
+                                                                    <div class="col-xs-6">
+                                                                        <span class="text-info ">N C 程序</span>
+                                                                        <img class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <a style="text-decoration: underline;">
+                                                                            <span class="fa fa-link "></span>刀具配刀
+                                                                        </a>
+                                                                        <img class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-xs-6">
+                                                                        <span class="text-info ">模、夹具</span>
+                                                                        <img class="image pull-right" src="~/Content/img/bGreen.gif" width="20" height="20" />
+                                                                    </div>
+                                                                    <div class="col-xs-6">
+                                                                        <span class="text-info ">特殊工作</span>
+                                                                        <img class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                                    </div>
+                                                                </div>*@
+                                                        </td>
+                                                    </tr>
+                                                    <tr ng-hide="prepareList">
+                                                        <td colspan="2"></td>
+                                                        <td colspan="2">
+                                                            <span class="text-warning ">NC程序</span>
+
+                                                            <img ng-if="line.prepareInfo == null || !line.prepareInfo.nC_IsPreparedFinished" class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                            <img ng-if="line.prepareInfo != null && line.prepareInfo.nC_IsPreparedFinished ==1" class="image pull-right" src="~/Content/img/bYellow.gif" width="20" height="20" />
+                                                            <img ng-if="line.prepareInfo != null && line.prepareInfo.nC_IsPreparedFinished==2" class="image pull-right" src="~/Content/img/bGreen.gif" width="20" height="20" />
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <span ng-if="line.prepareInfo == null || !line.prepareInfo.tooling_IsPreparedFinished" class="text-warning ">刀具配刀</span>
+                                                            <a ng-if="line.prepareInfo != null && line.prepareInfo.tooling_IsPreparedFinished>0" style="text-decoration: underline; cursor:pointer" ng-click="vm.gotoTooling(line.materialNumber)">
+                                                                <span class="fa fa-link text-warning"></span>刀具配刀
+                                                            </a>
+                                                            <img ng-if="line.prepareInfo == null || !line.prepareInfo.tooling_IsPreparedFinished" class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                            <img ng-if="line.prepareInfo != null && line.prepareInfo.tooling_IsPreparedFinished == 1" class="image pull-right" src="~/Content/img/bYellow.gif" width="20" height="20" />
+                                                            <img ng-if="line.prepareInfo != null && line.prepareInfo.tooling_IsPreparedFinished == 2" class="image pull-right" src="~/Content/img/bGreen.gif" width="20" height="20" />
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <span class="text-warning ">模、夹具</span>
+                                                            <img ng-if="line.prepareInfo == null || !line.prepareInfo.mould_IsPreparedFinished" class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                            <img ng-if="line.prepareInfo != null && line.prepareInfo.mould_IsPreparedFinished" class="image pull-right" src="~/Content/img/bGreen.gif" width="20" height="20" />
+                                                        </td>
+                                                        <td colspan="2">
+                                                            <span class="text-warning ">特殊工位器具</span>
+                                                            <img ng-if="line.prepareInfo == null || !line.prepareInfo.special_IsPreparedFinished" class="image pull-right" src="~/Content/img/bWhite.gif" width="20" height="20" />
+                                                            <img ng-if="line.prepareInfo != null && line.prepareInfo.special_IsPreparedFinished" class="image pull-right" src="~/Content/img/bGreen.gif" width="20" height="20" />
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-left: 2px; margin-right: 2px; margin-top: 2px;">
+                            <nav>
+                                <ul class="pagination">
+                                    <li ng-hide="vm.paginationOptions.selPage <=1">
+                                        <a ng-click="vm.previous()">
+                                            <span>上一页</span>
+                                        </a>
+                                    </li>
+                                    <li ng-repeat="page in vm.paginationOptions.pageList" ng-class="{active: vm.isActivePage(page)}">
+                                        <a ng-click="vm.selectPage(page)">{{ page }}</a>
+                                    </li>
+                                    <li ng-hide="vm.paginationOptions.selPage >= vm.paginationOptions.pages">
+                                        <a ng-click="vm.next()">
+                                            <span>下一页</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>

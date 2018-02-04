@@ -1,0 +1,123 @@
+﻿<div>
+    <form name="addLineForm" role="form" novalidate class="form-validation form-horizontal">
+        <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" ng-click="vm.cancel()">
+                <span aria-hidden="true">×</span>
+            </button>
+            <div class="modal-title" style="font-weight: bold;font-size:16px;">选择交接道序</div>
+        </div>
+        <div class="modal-body" busy-if="vm.loading">
+            <div class="form-horizontal red" style="margin-bottom: 10px;">
+                注：请确保交接道序已经配置“外协类型”、“东厂使用点/外协供应商”、“外协价格”（东厂不需），并在SAP中完成采购项审批。
+            </div>
+            <div class="form-horizontal" style="margin-left: 15px; margin-right: 15px;">
+                <div class="form-group tobacco-form-row tobacco-form-row-title">
+                    <div class="title-text">
+                        <i class="fa fa-fw fa-tag"></i> 订单信息：
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <label class="col-sm-2 control-label tobacco-form-label">订单号：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.sapOrder.orderNumber}}</div>
+                    </div>
+                    <label class="col-sm-2 control-label tobacco-form-label">订单类型：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.sapOrder.orderType}}</div>
+                    </div>
+                    <label class="col-sm-2 control-label tobacco-form-label">交接数量：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <input type="text" class="form-control" ng-model="vm.sapOrder.targetQuantity" />
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <label class="col-sm-2 control-label tobacco-form-label">物料编码：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.sapOrder.materialNumber}}</div>
+                    </div>
+                    <label class="col-sm-2 control-label tobacco-form-label">物料名称：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.sapOrder.materialDescription}}</div>
+                    </div>
+                    <label class="col-sm-2 control-label tobacco-form-label">WBS元素：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.sapOrder.wbsElement}}</div>
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <label class="col-sm-2 control-label tobacco-form-label">交接备注：</label>
+                    <div class="col-sm-10 tobacco-form-item">
+                        <input type="text" class="form-control" ng-model="vm.remark" />
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row tobacco-form-row-title">
+                    <div class="title-text">
+                        <i class="fa fa-fw fa-tag"></i> 工艺信息：
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <div style="margin-left: 2px; margin-right: 2px; margin-top: 2px;">
+                        <table class="table table-bordered table-condensed table-data-simple">
+                            <thead>
+                                <tr>
+                                    <th width="65px">工序号</th>
+                                    <th width="100px">工艺代码</th>
+                                    <th width="180px">工艺名称</th>
+                                    <th width="100px">控制码</th>
+                                    <th width="80px">外协类型</th>
+                                    <th width="80px">外协价格</th>
+                                    <th width="80px">外协供方</th>
+                                    <th width="80px">合格数量</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div style="margin-left: 2px; margin-right: 2px; margin-bottom: 2px; height: 400px; overflow-y: scroll;">
+                        <table class="table table-bordered table-condensed table-data-simple">
+                            <tbody>
+                                <tr ng-if="vm.sapProcessList.length>0">
+                                    <td colspan="8"></td>
+                                    <td>
+                                        <button class="btn btn-xs btn-flat bg-silver blue-stripe" ng-click="vm.selectSapProcess(null)">
+                                            <i class="fa fa-fw fa-plus"></i> 首道
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr ng-repeat="process in vm.sapProcessList">
+                                    <td width="65px" align="center">{{::process.operationNumber}}</td>
+                                    <td width="100px" align="center">{{::process.workCenterCode}}</td>
+                                    <td width="180px">{{::process.workCenterName}}</td>
+                                    <td width="100px" align="center">{{::process.operationCtrlCode}}</td>
+                                    <td width="80px" align="center">
+                                        <span ng-if="process.processCooperateId">{{::process.cooperateTypeName}}</span>
+                                    </td>
+                                    <td width="80px" align="center">
+                                        <span ng-if="process.processCooperateId">{{::process.cooperaterPrice | number:2}}</span>
+                                    </td>
+                                    <td width="80px" align="center">
+                                        <span ng-if="process.processCooperateId">
+                                            <span ng-if="process.cooperateType==0">[{{::process.cooperaterCode}}]{{::process.cooperaterName}}</span>
+                                            <span ng-if="process.cooperateType!=0" title="{{::process.cooperaterName}}">{{::process.cooperaterCode}}</span>
+                                        </span>
+                                    </td>
+                                    <td width="80px" align="center">
+                                        <span ng-if="process.processCooperateId">
+                                            <span ng-if="process.isMesInspectFinished">{{::process.mesInspectQualified | number:2}}</span>
+                                            <span ng-if="!process.isMesInspectFinished">未检验</span>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-xs btn-flat bg-silver blue-stripe" ng-show="vm.canProcessHandOver(process)" ng-click="vm.selectSapProcess(process)">
+                                            <i class="fa fa-fw fa-plus"></i> 选择
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

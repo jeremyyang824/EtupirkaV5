@@ -1,0 +1,411 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://stmc.mes.pickchange.com" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://stmc.mes.pickchange.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://stmc.mes.pickchange.com">
+      <s:element name="PickChangeInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="monumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="molinenumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="osnumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pointofuse" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="workcenter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="workcenterDes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="worktime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="preparetime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickChangeInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickChangeInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickMultipleChange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="monumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="molinenumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickMultipleChangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickMultipleChangeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickInsertInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="monumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="molinenumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="osnumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="pointofuse" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="workcenter" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="workcenterDes" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="worktime" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="preparetime" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickInsertInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickInsertInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickDeleteInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="monumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="molinenumber" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="osnumber" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PickDeleteInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PickDeleteInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="PickChangeInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:PickChangeInfo" />
+  </wsdl:message>
+  <wsdl:message name="PickChangeInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:PickChangeInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PickMultipleChangeSoapIn">
+    <wsdl:part name="parameters" element="tns:PickMultipleChange" />
+  </wsdl:message>
+  <wsdl:message name="PickMultipleChangeSoapOut">
+    <wsdl:part name="parameters" element="tns:PickMultipleChangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="PickInsertInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:PickInsertInfo" />
+  </wsdl:message>
+  <wsdl:message name="PickInsertInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:PickInsertInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PickDeleteInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:PickDeleteInfo" />
+  </wsdl:message>
+  <wsdl:message name="PickDeleteInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:PickDeleteInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="PickChangeInfoHttpGetIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+    <wsdl:part name="osnumber" type="s:string" />
+    <wsdl:part name="pointofuse" type="s:string" />
+    <wsdl:part name="workcenter" type="s:string" />
+    <wsdl:part name="workcenterDes" type="s:string" />
+    <wsdl:part name="worktime" type="s:string" />
+    <wsdl:part name="preparetime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickChangeInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickMultipleChangeHttpGetIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickMultipleChangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickInsertInfoHttpGetIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+    <wsdl:part name="osnumber" type="s:string" />
+    <wsdl:part name="pointofuse" type="s:string" />
+    <wsdl:part name="workcenter" type="s:string" />
+    <wsdl:part name="workcenterDes" type="s:string" />
+    <wsdl:part name="worktime" type="s:string" />
+    <wsdl:part name="preparetime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickInsertInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickDeleteInfoHttpGetIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+    <wsdl:part name="osnumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickDeleteInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickChangeInfoHttpPostIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+    <wsdl:part name="osnumber" type="s:string" />
+    <wsdl:part name="pointofuse" type="s:string" />
+    <wsdl:part name="workcenter" type="s:string" />
+    <wsdl:part name="workcenterDes" type="s:string" />
+    <wsdl:part name="worktime" type="s:string" />
+    <wsdl:part name="preparetime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickChangeInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickMultipleChangeHttpPostIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickMultipleChangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickInsertInfoHttpPostIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+    <wsdl:part name="osnumber" type="s:string" />
+    <wsdl:part name="pointofuse" type="s:string" />
+    <wsdl:part name="workcenter" type="s:string" />
+    <wsdl:part name="workcenterDes" type="s:string" />
+    <wsdl:part name="worktime" type="s:string" />
+    <wsdl:part name="preparetime" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickInsertInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PickDeleteInfoHttpPostIn">
+    <wsdl:part name="monumber" type="s:string" />
+    <wsdl:part name="molinenumber" type="s:string" />
+    <wsdl:part name="osnumber" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PickDeleteInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="PickChangeSoap">
+    <wsdl:operation name="PickChangeInfo">
+      <wsdl:input message="tns:PickChangeInfoSoapIn" />
+      <wsdl:output message="tns:PickChangeInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <wsdl:input message="tns:PickMultipleChangeSoapIn" />
+      <wsdl:output message="tns:PickMultipleChangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <wsdl:input message="tns:PickInsertInfoSoapIn" />
+      <wsdl:output message="tns:PickInsertInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <wsdl:input message="tns:PickDeleteInfoSoapIn" />
+      <wsdl:output message="tns:PickDeleteInfoSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PickChangeHttpGet">
+    <wsdl:operation name="PickChangeInfo">
+      <wsdl:input message="tns:PickChangeInfoHttpGetIn" />
+      <wsdl:output message="tns:PickChangeInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <wsdl:input message="tns:PickMultipleChangeHttpGetIn" />
+      <wsdl:output message="tns:PickMultipleChangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <wsdl:input message="tns:PickInsertInfoHttpGetIn" />
+      <wsdl:output message="tns:PickInsertInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <wsdl:input message="tns:PickDeleteInfoHttpGetIn" />
+      <wsdl:output message="tns:PickDeleteInfoHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="PickChangeHttpPost">
+    <wsdl:operation name="PickChangeInfo">
+      <wsdl:input message="tns:PickChangeInfoHttpPostIn" />
+      <wsdl:output message="tns:PickChangeInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <wsdl:input message="tns:PickMultipleChangeHttpPostIn" />
+      <wsdl:output message="tns:PickMultipleChangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <wsdl:input message="tns:PickInsertInfoHttpPostIn" />
+      <wsdl:output message="tns:PickInsertInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <wsdl:input message="tns:PickDeleteInfoHttpPostIn" />
+      <wsdl:output message="tns:PickDeleteInfoHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PickChangeSoap" type="tns:PickChangeSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PickChangeInfo">
+      <soap:operation soapAction="http://stmc.mes.pickchange.com/PickChangeInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <soap:operation soapAction="http://stmc.mes.pickchange.com/PickMultipleChange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <soap:operation soapAction="http://stmc.mes.pickchange.com/PickInsertInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <soap:operation soapAction="http://stmc.mes.pickchange.com/PickDeleteInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PickChangeSoap12" type="tns:PickChangeSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="PickChangeInfo">
+      <soap12:operation soapAction="http://stmc.mes.pickchange.com/PickChangeInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <soap12:operation soapAction="http://stmc.mes.pickchange.com/PickMultipleChange" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <soap12:operation soapAction="http://stmc.mes.pickchange.com/PickInsertInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <soap12:operation soapAction="http://stmc.mes.pickchange.com/PickDeleteInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PickChangeHttpGet" type="tns:PickChangeHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="PickChangeInfo">
+      <http:operation location="/PickChangeInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <http:operation location="/PickMultipleChange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <http:operation location="/PickInsertInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <http:operation location="/PickDeleteInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="PickChangeHttpPost" type="tns:PickChangeHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="PickChangeInfo">
+      <http:operation location="/PickChangeInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickMultipleChange">
+      <http:operation location="/PickMultipleChange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickInsertInfo">
+      <http:operation location="/PickInsertInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PickDeleteInfo">
+      <http:operation location="/PickDeleteInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PickChange">
+    <wsdl:port name="PickChangeSoap" binding="tns:PickChangeSoap">
+      <soap:address location="http://172.16.23.60/mes/Service/CordysChangePick.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PickChangeSoap12" binding="tns:PickChangeSoap12">
+      <soap12:address location="http://172.16.23.60/mes/Service/CordysChangePick.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PickChangeHttpGet" binding="tns:PickChangeHttpGet">
+      <http:address location="http://172.16.23.60/mes/Service/CordysChangePick.asmx" />
+    </wsdl:port>
+    <wsdl:port name="PickChangeHttpPost" binding="tns:PickChangeHttpPost">
+      <http:address location="http://172.16.23.60/mes/Service/CordysChangePick.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

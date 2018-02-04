@@ -1,0 +1,39 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <div class="modal-title" style="font-weight: bold; font-size: 16px;">机台作业资料查看</div>
+        <div ng-if="vm.archiveType == 3">CAPP</div>
+        <div ng-if="vm.archiveType == 1">Tooling</div>
+    </div>
+    <div class="modal-body drawing-container" busy-if="vm.loading">
+        <div class="sidebar-left" data-status="open">
+            <div class="sidebar-left-content" ng-class="{false: 'hideMenu'}[vm.isShowMenu]">
+                <div class="row" style="margin-top: 10px; margin-left: 0px;">
+                    <div class="col-md-12" style="padding: 0px 8px 0px 8px;">
+                        <ul class="partdoc-list">
+                            <li class="partdoc-item" ng-repeat="file in vm.fileData">
+                                <div class="partdoc-name">
+                                    <a class="btn btn-drawing" ng-click="vm.viewFile(file)">
+                                        <i class="fa fa-fw fa-gear"></i>
+                                        {{::file.fileName}}
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-left-toggler" ng-class="{false: 'hideMenu'}[vm.isShowMenu]" ng-click="vm.toggle()">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+        </div>
+        <div class="main-content" ng-class="{false: 'hideMenu'}[vm.isShowMenu]">
+            <div style="margin-left:5px;">
+                <iframe ng-src="{{vm.drawingUrl}}" height="620" width="100%"></iframe>
+            </div>
+        </div>
+
+    </div>
+</div>

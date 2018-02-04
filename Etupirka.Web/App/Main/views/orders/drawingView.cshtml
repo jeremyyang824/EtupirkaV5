@@ -1,0 +1,67 @@
+﻿<div>
+    <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" ng-click="vm.cancel()">
+            <span aria-hidden="true">×</span>
+        </button>
+        <div class="modal-title" style="font-weight: bold; font-size: 16px;">零件图纸查看</div>
+    </div>
+    <div class="modal-body drawing-container" busy-if="vm.loading">
+        <div class="sidebar-left" data-status="open">
+            <div class="sidebar-left-content" ng-class="{false: 'hideMenu'}[vm.isShowMenu]">
+                <div class="row" style="margin-top: 10px; margin-left: 0px;">
+                    <div class="col-md-12">
+                        <div>
+                            零件编码：<span>{{::vm.drawingData.partNumber}}</span>
+                        </div>
+                        <div>
+                            零件名称：<span>{{::vm.drawingData.partName}}</span>
+                        </div>
+                        <div>
+                            零件版本：<span>{{::vm.drawingData.partVersion}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-12" style="border: 1px solid #e2e2e2; margin: 5px 0px 5px 0px;" />
+                    <div class="col-md-12" style="padding: 0px 8px 0px 8px;">
+                        <ul class="partdoc-list">
+                            <li class="partdoc-item" ng-repeat="docItem in vm.drawingData.partDocs">
+                                <div class="partdoc-name">
+                                    <i class="fa fa-fw fa-gear"></i>
+                                    {{::docItem.docName}}
+                                    <span class="label label-success pull-right">
+                                        {{::docItem.docVersion}}
+                                    </span>
+                                </div>
+                                <div class="partdoc-content">
+                                    <div class="partdoc-minorText">
+                                        修改人：{{::docItem.docModifier}}
+                                    </div>
+                                    <div class="partdoc-minorText">
+                                        修改时间：{{::docItem.publishTime | date:'yyyy-MM-dd'}}
+                                    </div>
+                                </div>
+                                <div class="partdoc-content clearfix">
+                                    <a class="btn btn-drawing" ng-click="vm.view2d(docItem)" ng-disabled="!docItem.downloadUrl2D">
+                                        <i class="fa fa-fw fa-file-o"></i>
+                                        2D图纸
+                                    </a>
+                                    <a class="btn btn-drawing" ng-click="vm.view3d(docItem)" ng-disabled="!docItem.downloadUrl3D">
+                                        <i class="fa fa-fw fa-file-o"></i>
+                                        3D图纸
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-left-toggler" ng-class="{false: 'hideMenu'}[vm.isShowMenu]" ng-click="vm.toggle()">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </div>
+        </div>
+        <div class="main-content" ng-class="{false: 'hideMenu'}[vm.isShowMenu]">
+            <div style="margin-left:5px;">
+                <iframe ng-src="{{vm.drawingUrl}}" height="620" width="100%"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

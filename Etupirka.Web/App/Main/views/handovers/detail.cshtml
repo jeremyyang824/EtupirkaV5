@@ -1,0 +1,208 @@
+﻿<div class="box box-success none-margin-bottom">
+    <div class="box-body">
+        <div style="max-width:1200px;" busy-if="vm.loading">
+            <form class="form-horizontal margin-left-5 margin-right-5">
+                <div class="form-group tobacco-form-row tobacco-form-row-title">
+                    <div class="title-text">
+                        <i class="fa fa-fw fa-tag"></i> 单据信息：
+                    </div>
+                    <div class="pull-right">
+                        <button ng-click="vm.saveBill()" ng-show="vm.formMode===1" class="btn btn-blue btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-save"></i> 保存单据
+                        </button>
+                        <button ng-click="vm.deleteBill()" ng-show="vm.formMode===1" class="btn bg-red btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-warning"></i> 撤销单据
+                        </button>
+                        <button ng-click="vm.publishBill()" ng-show="vm.formMode===1" class="btn bg-tobacco btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-check"></i> 提交单据
+                        </button>
+                        <button ng-click="vm.printBill()" ng-show="vm.formMode!==1" class="btn bg-blue btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-print"></i> 打印单据
+                        </button>
+                        <button ng-click="vm.gotoList()" class="btn btn-default btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-reply"></i> 回到列表
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <label class="col-sm-1 control-label tobacco-form-label">交接单号：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.billData.billCode}}</div>
+                    </div>
+                    <label class="col-sm-1 control-label tobacco-form-label">转出部门：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static" ng-if="vm.formMode!=1">
+                            {{vm.billData.transferSource.organizationUnitName}}
+                        </div>
+                        <select ng-model="vm.billData.transferSource" class="form-control" ng-if="vm.formMode===1" ng-disabled="vm.billLinesData.length>0"
+                                ng-options="item as item.organizationUnitName for item in vm.handOverDepartments"></select>
+                    </div>
+                    <label class="col-sm-1 control-label tobacco-form-label">转入类型：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static" ng-if="vm.formMode!=1">{{vm.billData.transferTargetTypeName}}</div>
+                        <div class="form-control-static" ng-if="vm.formMode===1">
+                            <div style="height: 20px; padding: 0; margin: 0;">
+                                <label style="font-weight: normal;">
+                                    <input type="radio" name="rTransferTargetType" i-check="{radioClass: 'iradio_minimal'}" ng-disabled="vm.billLinesData.length>0"
+                                           ng-value="0" ng-model="vm.billData.transferTargetType" /> 部门交接
+                                </label>
+                                <label style="font-weight: normal;">
+                                    <input type="radio" name="rTransferTargetType" i-check="{radioClass: 'iradio_minimal'}" ng-disabled="vm.billLinesData.length>0"
+                                           ng-value="1" ng-model="vm.billData.transferTargetType" /> 供方交接
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <label class="col-sm-1 control-label tobacco-form-label">
+                        <span ng-if="vm.billData.transferTargetType===0">转入部门：</span>
+                        <span ng-if="vm.billData.transferTargetType===1">转入供方：</span>
+                    </label>
+                    <!--转入部门-->
+                    <div class="col-sm-2 tobacco-form-item" ng-if="vm.billData.transferTargetType===0">
+                        <div class="form-control-static" ng-if="vm.formMode!=1">
+                            {{vm.billData.transferTargetDepartment.organizationUnitName}}
+                        </div>
+                        <select ng-model="vm.billData.transferTargetDepartment" class="form-control" ng-if="vm.formMode===1" ng-disabled="vm.billLinesData.length>0"
+                                ng-options="item as item.organizationUnitName for item in vm.handOverDepartments"></select>
+                    </div>
+                    <!--转入外协-->
+                    <div class="col-sm-2 tobacco-form-item" ng-if="vm.billData.transferTargetType===1">
+                        <div class="form-control-static" ng-if="vm.formMode!=1">
+                            {{vm.billData.transferTargetSupplier.supplierFullName}}
+                        </div>
+                        <input type="text" class="form-control pull-left" style="width:50%;" ng-if="vm.formMode===1" ng-disabled="vm.billLinesData.length>0" ng-model="vm.billData.transferTargetSupplier.supplierCode" />
+                        <input type="text" class="form-control pull-left" style="width:50%;" ng-if="vm.formMode===1" ng-disabled="vm.billLinesData.length>0" ng-model="vm.billData.transferTargetSupplier.supplierName" />
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <label class="col-sm-1 control-label tobacco-form-label">单据备注：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static" ng-if="vm.formMode!=1">{{vm.billData.remark}}</div>
+                        <input type="text" class="form-control" ng-if="vm.formMode===1" ng-model="vm.billData.remark" />
+                    </div>
+                    <label class="col-sm-1 control-label tobacco-form-label">创建人：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.billData.creatorUserName}}</div>
+                    </div>
+                    <label class="col-sm-1 control-label tobacco-form-label">转出时间：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static">{{vm.billData.handOverDate | date:'yyyy-MM-dd HH:mm'}}</div>
+                    </div>
+                    <label class="col-sm-1 control-label tobacco-form-label">当前状态：</label>
+                    <div class="col-sm-2 tobacco-form-item">
+                        <div class="form-control-static" ng-class="{'red': vm.billData.billState==0, 'green': vm.billData.billState!=0}">{{vm.billData.billStateName}}</div>
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row tobacco-form-row-title">
+                    <div class="title-text">
+                        <i class="fa fa-fw fa-tag"></i> 单据明细：
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row" ng-if="vm.formMode!=0">
+                    <div class="col-sm-12 tobacco-form-item form-inline" style="padding: 10px 0 0 10px;">
+                        <div class="form-control-static" style="height: 20px; padding: 0; margin: 0;">
+                            <label style="font-weight: normal;">
+                                <input type="radio" name="rInputOrderType" i-check="{radioClass: 'iradio_minimal'}"
+                                       ng-value="'FS'" ng-model="vm.inputOrderInfo.sourceName" /> FS订单/行号
+                            </label>
+                            <label style="font-weight: normal;">
+                                <input type="radio" name="rInputOrderType" i-check="{radioClass: 'iradio_minimal'}"
+                                       ng-value="'SAP'" ng-model="vm.inputOrderInfo.sourceName" /> SAP订单
+                            </label>
+                        </div>
+                        <input id="txtInputOrderLine" type="text" ng-model="vm.inputOrderInfo.formatOrderLine" auto-focus class="form-control form-control-thin"
+                               placeholder="请输入订单（/行号）" style="width: 150px;">
+                        <button ng-click="vm.billLineAdd()" ng-if="vm.formMode==1" ng-disabled="!vm.isBillLineAddEnable()" class="btn btn-primary btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-plus"></i> 添加
+                        </button>
+                        <button ng-click="vm.billLineDeleteMuti()" ng-if="vm.formMode==1" class="btn bg-yellow btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-minus"></i> 删除
+                        </button>
+                        <button ng-click="vm.billLineReceiveMuti()" ng-if="vm.formMode==2" class="btn bg-green btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-check"></i> 接收
+                        </button>
+                        <button ng-click="vm.billLineRejectMuti()" ng-if="vm.formMode==2" class="btn bg-red btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-close"></i> 退回
+                        </button>
+                        <button ng-click="vm.billLineTransferMuti()" ng-if="vm.formMode==2" class="btn bg-red btn-flat btn-from-control-thin">
+                            <i class="fa fa-fw fa-reply"></i> 转送
+                        </button>
+                    </div>
+                </div>
+                <div class="form-group tobacco-form-row">
+                    <div style="margin-left: 2px; margin-right: 2px; margin-top: 2px;">
+                        <table class="table table-bordered table-condensed table-data-simple">
+                            <thead>
+                                <tr>
+                                    <th width="50px">
+                                        <input type="checkbox" ng-model="vm.isSelectAll" ng-click="vm.util.selectAll(vm.isSelectAll)" />
+                                    </th>
+                                    <th width="50px"></th>
+                                    <th width="50px">来源</th>
+                                    <th width="110px">订单(行)</th>
+                                    <th width="110px">物料编码</th>
+                                    <th width="110px">物料名称</th>
+                                    <th width="60px">交接数</th>
+                                    <th width="160px">当前工序</th>
+                                    <th width="70px">质检</th>
+                                    <th width="160px">下道工序</th>
+                                    <th width="65px">状态</th>
+                                    <th width="90px">操作人</th>
+                                    <th>备注</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <div style="margin-left: 2px; margin-right: 2px; margin-bottom: 2px; height: 480px; overflow-y: scroll;">
+                        <table class="table table-bordered table-condensed table-data-simple">
+                            <tbody>
+                                <tr ng-repeat="line in vm.billLinesData">
+                                    <td width="50px" align="center">
+                                        <input type="checkbox" ng-model="line.$checked" ng-disabled="line.lineState!=0" />
+                                    </td>
+                                    <td class="td-idx" width="50px">#{{::$index+1}}</td>
+                                    <td width="50px" align="center"><b>{{::line.orderInfo.sourceName}}</b></td>
+                                    <td width="110px">
+                                        <span ng-bind="vm.util.formatOrderLine(line.orderInfo)"></span>
+                                    </td>
+                                    <td width="110px">
+                                        <div>{{::line.itemNumber}}</div>
+                                        <div>{{::line.drawingNumber}}</div>
+                                    </td>
+                                    <td width="110px">{{::line.itemDescription}}</td>
+                                    <td width="60px" align="center">
+                                        <span>{{::line.handOverQuantity | number:2}}</span>
+                                    </td>
+                                    <td width="160px">
+                                        <div ng-show="line.currentProcess.processNumber">[{{::line.currentProcess.processNumber}}]{{::line.currentProcess.processName}}</div>
+                                        <div ng-show="line.currentProcess.processNumber">{{::line.currentProcess.pointOfUseName}}</div>
+                                    </td>
+                                    <td width="70px">
+                                        <div ng-class="{'green': line.inspectState==1, 'red': line.inspectState!=1}" title="{{::line.inspectStateErrorMessage}}" align="center">{{::line.inspectStateName}}</div>
+                                    </td>
+                                    <td width="160px">
+                                        <div ng-show="line.nextProcess.processNumber">[{{::line.nextProcess.processNumber}}]{{::line.nextProcess.processName}}</div>
+                                        <div ng-show="line.nextProcess.processNumber">{{::line.nextProcess.pointOfUseName}}</div>
+                                    </td>
+                                    <td width="65px" align="center">
+                                        <span ng-class="{'red': line.lineState==0, 'green': line.lineState!=0}">
+                                            <span style="cursor:pointer; text-decoration: underline;" ng-click="vm.showSapLineLogs(line)" ng-if="line.orderInfo.sourceName=='SAP'">{{::line.lineStateName}}</span>
+                                            <span ng-if="line.orderInfo.sourceName!='SAP'">{{::line.lineStateName}}</span>
+                                        </span>
+                                    </td>
+                                    <td width="90px" align="center">
+                                        <div>{{::line.operatorUserName}}</div>
+                                        <div>{{::line.operatorDate | date:'yyyy-MM-dd'}}</div>
+                                    </td>
+                                    <td>
+                                        <span>{{::line.remark}}</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

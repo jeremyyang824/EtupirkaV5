@@ -1,0 +1,12 @@
+﻿<div class="box box-success none-margin-bottom">
+    <div class="box-header with-border">
+        <h3 class="box-title">
+            <i class="fa fa-fw fa-group"></i><strong>角色列表</strong>
+        </h3>
+    </div>
+    <div class="box-body">
+        <div busy-if="vm.roleLoading">
+            <div ui-grid="vm.roleGridOptions" ui-grid-selection style="height: 420px;"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,67 @@
+﻿<div>
+    <form name="editCooperateForm" role="form" novalidate class="form-validation form-horizontal">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                <span><strong>修改工艺外协信息： {{vm.cooperateProcess.orderNumber}} - {{vm.cooperateProcess.operationNumber}}</strong></span>
+            </h4>
+        </div>
+        <div class="modal-body">
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">工艺代码：</label>
+                <div class="col-sm-8">
+                    <div class="form-control-static">{{::vm.cooperateProcess.workCenterCode }}</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">工艺名称：</label>
+                <div class="col-sm-8">
+                    <div class="form-control-static">{{::vm.cooperateProcess.workCenterName }}</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">外协类型：</label>
+                <div class="col-sm-8">
+                    <select ng-model="vm.cooperateProcess.cooperateType" class="form-control"
+                            ng-options="item.value as item.name for item in [{name:'东厂外协',value:0},{name:'供方外协',value:1}]"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">供方代码：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"
+                           ng-model="vm.cooperateProcess.cooperaterCode" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">供方名称：</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control"
+                           ng-model="vm.cooperateProcess.cooperaterName" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">外协价格：</label>
+                <div class="col-sm-8">
+                    <input type="number" class="form-control" ng-pattern="/^[0-9]\d*(\.\d+)?$/"
+                           ng-model="vm.cooperateProcess.cooperaterPrice" required/>
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default btn-flat"
+                    ng-click="vm.cancel()" ng-disabled="vm.saving">
+                <i class="fa fa-fw fa-ban"></i> <span>@L("Cancel")</span>
+            </button>
+            <button type="submit" button-busy="vm.saving" class="btn btn-primary btn-flat"
+                    ng-click="vm.save()" ng-disabled="editCooperateForm.$invalid">
+                <i class="fa fa-fw fa-save"></i> <span>@L("Save")</span>
+            </button>
+        </div>
+    </form>
+</div>

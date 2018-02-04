@@ -1,0 +1,35 @@
+﻿<div class="box box-success none-margin-bottom">
+
+    <div class="box-header">
+        <h3 class="box-title">
+            <i class="fa fa-fw fa-user"></i><strong>用户列表</strong>
+        </h3>
+        <div class="box-tools pull-right form-inline" enter-key="vm.bindUsers()">
+            <div class="form-group">
+                <select id="txtSearchIsActive" ng-model="vm.filterIsActive" class="form-control form-control-thin" style="height:30px;"
+                        ng-options="item.value as item.name for item in [{name:'全部',value:null},{name:'启用',value:true},{name:'禁用',value:false}]"></select>
+            </div>
+            <div class="input-group input-group-sm" style="width: 160px;">
+                <input type="text" name="txtSearchUsername" ng-model="vm.filterText" auto-focus class="form-control" placeholder="请输入查询内容">
+                <div class="input-group-btn">
+                    <button class="btn btn-success" ng-click="vm.bindUsers()"><i class="fa fa-search"></i></button>
+                </div>
+            </div>
+            <div class="form-group">
+                <button id="btnCreateUser" ng-click="vm.createUser()" class="btn bg-yellow btn-from-control-thin" style="height:30px;" title="创建用户">
+                    <i class="fa fa-fw fa-user-plus"></i>
+                </button>
+            </div>
+            <div class="form-group">
+                <button id="btnAssignRole" ng-click="vm.assignRole()" class="btn bg-yellow btn-from-control-thin" style="height:30px;" title="分配角色">
+                    <i class="fa fa-fw fa-key"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="box-body">
+        <div busy-if="vm.userLoading">
+            <div ui-grid="vm.userGridOptions" ui-grid-pagination ui-grid-selection style="height: 420px;"></div>
+        </div>
+    </div>
+</div>

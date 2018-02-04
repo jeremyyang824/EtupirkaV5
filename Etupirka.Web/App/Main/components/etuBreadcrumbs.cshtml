@@ -1,0 +1,8 @@
+﻿<ol class="breadcrumb">
+    <li><a href="#"><i class="fa fa-home"></i>@L("HomePage")</a></li>
+    <li ng-repeat="bc in vm.breadcrumbs" ng-class="{'active': $last}">
+        <a ng-if="!$last && vm.isDefined(bc.url)" ng-href="{{bc.url}}" ng-click="vm.gotoBreadCrumb($index)">{{bc.label}}</a>
+        <a ng-if="!$last && vm.isDefined(bc.sref)" ui-sref="{{bc.sref}}" ng-click="vm.gotoBreadCrumb($index)">{{bc.label}}</a>
+        <span ng-if="$last || (!vm.isDefined(bc.url) && !vm.isDefined(bc.sref))">{{bc.label}}</span>
+    </li>
+</ol>

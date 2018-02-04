@@ -1,0 +1,44 @@
+﻿
+<div class="box box-success none-margin-bottom">
+    <div class="box-body">
+        <div class="form-inline" enter-key="vm.bindSapProcess()">
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--Search Header-->
+                    <div class="form-group">
+                        <label>起始订单号：</label>
+                        <input type="text" ng-model="vm.orderNumberRangeBegin" auto-focus class="form-control form-control-thin"
+                               placeholder="SAP订单号" style="width: 120px;">
+                    </div>
+                    <div class="form-group">
+                        <label>结束订单号：</label>
+                        <input type="text" ng-model="vm.orderNumberRangeEnd" class="form-control form-control-thin"
+                               placeholder="SAP订单号" style="width: 120px;">
+                    </div>
+                    <div class="form-group">
+                        <button ng-click="vm.bindSapProcess()" class="btn bg-tobacco btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-search"></i> 查询工艺
+                        </button>
+                        <button ng-click="vm.outputSapProcess()" class="btn bg-blue btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-arrow-up"></i> 导出工艺
+                        </button>
+                        <button ng-click="vm.importSapProcess()" class="btn bg-yellow btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-arrow-down"></i> 导入工艺
+                        </button>
+                        <button ng-click="vm.syncOrders()" class="btn bg-yellow btn-flat btn-from-control-thin margin-left-5">
+                            <i class="fa fa-fw fa-refresh"></i> 同步SAP订单
+                        </button>
+                    </div>
+                    <!--Search Header End-->
+                </div>
+            </div>
+            <div class="row margin-top-5">
+                <div class="col-sm-12">
+                    <div busy-if="vm.loading">
+                        <div ui-grid="vm.sapProcessGridOptions" ui-grid-pagination ui-grid-pinning style="width: 1000px; height:520px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
